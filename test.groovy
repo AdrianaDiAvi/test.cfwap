@@ -7,8 +7,8 @@ def ion_remote_connection (){
   remote.timeoutSec = 150
   remote.retryCount = 3
   remote.retryWaitSec = 5
-  remote.user=AARCEMOR_ZSC2_ION_SSH_KEY
-  remote.identityFile=AARCEMOR_ZSC2_ION_SSH_KEY_USR
+  remote.user=AARCEMOR_ION_CREDS_USR
+  remote.identityFile=AARCEMOR_ION_CREDS
 
 
   return remote
@@ -28,6 +28,7 @@ pipeline {
         ONESOURCE_REPO = "github.com/intel-innersource/applications.benchmarking.benchmark.platform-hero-features.git"
         ONESOURCE_DIR = "platform-hero-features"
         MAIN_BRANCH='master'
+        AARCEMOR_ION_CREDS = credentials('aarcemor-zsc2-ion-ssh-key')
     }
 
     stages {
