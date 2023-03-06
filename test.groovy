@@ -1,4 +1,19 @@
 #!/usr/bin/env groovy
+def ion_remote_connection (){
+  def remote = [:]
+  remote.name = "ion"
+  remote.host = "${ION_SERVER}"
+  remote.allowAnyHosts = true
+  remote.timeoutSec = 150
+  remote.retryCount = 3
+  remote.retryWaitSec = 5
+  if (env.BEST_USER == "aarcemor"){
+    remote.user=AARCEMOR_ION_CREDS_USR
+    remote.identityFile=AARCEMOR_ION_CREDS
+  }
+
+  return remote
+}
 
 pipeline {
     agent {
@@ -19,11 +34,14 @@ pipeline {
     stages {
         stage('Setup Repos'){
             steps {
-            sh '''
-            git clone https://${GITHUB_CREDS_USR}:${GITHUB_CREDS_PSW}@${ONESOURCE_CFWAP_REPO} ${ONESOURCE_CFWAP_DIR}
-            git clone https://${GITHUB_CREDS_USR}:${GITHUB_CREDS_PSW}@${ONESOURCE_REPO} ${ONESOURCE_DIR}
-            rsync -av --exclude .git ${ONESOURCE_DIR} ${ONESOURCE_CFWAP_DIR}/
-           '''
+                script{
+                    sh '''
+                    git clone https://${GITHUB_CREDS_USR}:${GITHUB_CREDS_PSW}@${ONESOURCE_CFWAP_REPO} ${ONESOURCE_CFWAP_DIR}
+                    git clone https://${GITHUB_CREDS_USR}:${GITHUB_CREDS_PSW}@${ONESOURCE_REPO} ${ONESOURCE_DIR}
+                    rsync -av --exclude .git ${ONESOURCE_DIR} ${ONESOURCE_CFWAP_DIR}/
+                    '''
+                    sshCommand remote: ion_remote_connection()
+                }
             }
         }
 
