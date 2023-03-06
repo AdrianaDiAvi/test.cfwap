@@ -2,7 +2,7 @@
 def ion_remote_connection (){
   def remote = [:]
   remote.name = "ion"
-  remote.host = "${ION_SERVER}"
+  remote.host = "simcloud1.intel.com"
   remote.allowAnyHosts = true
   remote.timeoutSec = 150
   remote.retryCount = 3
