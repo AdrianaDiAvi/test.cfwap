@@ -8,7 +8,7 @@ def ion_remote_connection (){
   remote.retryCount = 3
   remote.retryWaitSec = 5
   if (env.BEST_USER == "aarcemor"){
-    remote.user=AARCEMOR_ION_CREDS_USR
+    remote.user=env.AARCEMOR_ION_CREDS_USR
     remote.identityFile=AARCEMOR_ION_CREDS
   }
 
@@ -40,7 +40,7 @@ pipeline {
                     git clone https://${GITHUB_CREDS_USR}:${GITHUB_CREDS_PSW}@${ONESOURCE_REPO} ${ONESOURCE_DIR}
                     rsync -av --exclude .git ${ONESOURCE_DIR} ${ONESOURCE_CFWAP_DIR}/
                     '''
-                    sshCommand remote: ion_remote_connection()
+                    sshCommand remote: ion_remote_connection(), command: "cd /nfs/site/disks/wl_analysis_automation_01/aarcemor/jenkins/"
                 }
             }
         }
