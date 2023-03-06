@@ -7,10 +7,9 @@ def ion_remote_connection (){
   remote.timeoutSec = 150
   remote.retryCount = 3
   remote.retryWaitSec = 5
-  if (env.BEST_USER == "aarcemor"){
-    remote.user=env.AARCEMOR_ION_CREDS_USR
-    remote.identityFile=AARCEMOR_ION_CREDS
-  }
+  remote.user=AARCEMOR_ION_CREDS_USR
+  remote.identityFile=AARCEMOR_ION_CREDS
+
 
   return remote
 }
