@@ -21,7 +21,7 @@ pipeline {
             steps {
             sh '''
             mkdir ${ONESOURCE_CFWAP_DIR}
-            git clone https://${GITHUB_CREDS_USR}:${GITHUB_CREDS_PSW}@${ONESOURCE_REPO} ${ONESOURCE_CFWAP_DIR}
+            git clone https://${GITHUB_CREDS_USR}:${GITHUB_CREDS_PSW}@${ONESOURCE_CFWAP_REPO} ${ONESOURCE_CFWAP_DIR}
             cd ..
             mkdir ${ONESOURCE_DIR}
             git clone https://${GITHUB_CREDS_USR}:${GITHUB_CREDS_PSW}@${ONESOURCE_REPO} ${ONESOURCE_DIR}
